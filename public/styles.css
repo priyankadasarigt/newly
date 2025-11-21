@@ -93,19 +93,18 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* FULL COLOR BACKGROUND FIX FOR MOBILE */
+
+/* ----------------------------------------
+   ❌ Disable background animation on mobile
+----------------------------------------- */
 @media (max-width: 768px) {
   body {
-    background-size: 600% 600%;   /* bigger spread */
-    animation: bgMoveMobile 18s ease infinite;
+    animation: none !important;          /* STOP ANIMATION */
+    background-size: cover !important;   /* FULL FIT */
+    background-position: center !important;
   }
 }
 
-@keyframes bgMoveMobile {
-  0% { background-position: 0% 30%; }
-  50% { background-position: 100% 70%; }
-  100% { background-position: 0% 30%; }
-}
 
 
 /* ----------------------------------------
