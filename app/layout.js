@@ -8,7 +8,7 @@ export default function RootLayout({ children }) {
         {/* External CSS (hidden content, not inline in view-source) */}
         <link rel="stylesheet" href="/styles.css" />
         {/* External DevTool blocker script */}
-        <script src="/devtool.js" defer></script>
+        <script src="/m.js" defer></script>
       </head>
       <body>
         {children}
