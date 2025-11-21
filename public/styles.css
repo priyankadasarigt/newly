@@ -97,14 +97,17 @@ body {
 /* ----------------------------------------
    ❌ Disable background animation on mobile
 ----------------------------------------- */
+/* ----------------------------------------
+   📱 MOBILE VERSION — USE OLD STATIC BACKGROUND
+----------------------------------------- */
 @media (max-width: 768px) {
   body {
-    animation: none !important;          /* STOP ANIMATION */
-    background-size: cover !important;   /* FULL FIT */
+    background: linear-gradient(45deg, #ff416c, #ff4b2b, #1e90ff) !important;
+    background-size: cover !important;
     background-position: center !important;
+    animation: none !important;
   }
 }
-
 
 
 /* ----------------------------------------
