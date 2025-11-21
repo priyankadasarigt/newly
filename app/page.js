@@ -41,7 +41,7 @@ export default async function Page() {
       {/* NEW BIG HEADER (UPDATED TO HYPERLINK) */}
       <div className="hunt-header">
         <a
-          href="https://dsfsd.com"
+          href="https://telegram.dog/HuntTV"
           target="_blank"
           rel="noreferrer"
           className="hunt-glow-text"
