@@ -3,21 +3,21 @@ import { NextResponse } from "next/server";
 export async function GET(req) {
   try {
     // -----------------------------
-    // 🔐 SECURITY CHECK #1 — Host validation (BEST)
+    // 🔐 SECURITY CHECK #1 — HOST VALIDATION
     // -----------------------------
-    const host = req.headers.get("host"); // should be: vidya.myftp.biz
+    const host = req.headers.get("host"); // e.g. vidya.myftp.biz
     const allowedHost = process.env.ALLOWED_HOST;
 
     if (!host || host !== allowedHost) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: "Unauthorized Host" }, { status: 401 });
     }
 
     // -----------------------------
-    // 🔐 SECURITY CHECK #2 — Block non-browser clients
+    // 🔐 SECURITY CHECK #2 — LEVEL 4 USER-AGENT VALIDATION
     // -----------------------------
     const ua = req.headers.get("user-agent") || "";
 
-    // ❌ block all known scrapers, bots & API clients
+    // ❌ Block known scrapers & non-browser tools
     const badAgents = [
       "curl",
       "python",
@@ -30,29 +30,26 @@ export async function GET(req) {
       "node",
       "axios",
       "postman",
-      "insomnia"
+      "insomnia",
+      "go-http-client"
     ];
 
     if (badAgents.some(a => ua.toLowerCase().includes(a))) {
       return NextResponse.json({ error: "Unauthorized UA" }, { status: 401 });
     }
 
-    // ✔ REAL BROWSER User-Agent patterns (Level-3 protection)
-    const realBrowserPatterns = [
-      "Mozilla/5.0",
-      "Chrome/",
-      "Safari/",
-      "Gecko/",
-      "Edg/"
-    ];
+    // ✔ Strict browser UA pattern (Chrome / Edge / Safari / Firefox)
+    const isRealBrowser =
+      ua.includes("Mozilla/5.0") &&
+      (ua.includes("Chrome/") || ua.includes("Safari/") || ua.includes("Firefox") || ua.includes("Edg/")) &&
+      ua.includes("AppleWebKit"); // real browser engine
 
-    // If UA doesn't match ANY real browser signature → BLOCK
-    if (!realBrowserPatterns.some(p => ua.includes(p))) {
-      return NextResponse.json({ error: "Browser only" }, { status: 401 });
+    if (!isRealBrowser) {
+      return NextResponse.json({ error: "Browser only strict" }, { status: 401 });
     }
 
     // -----------------------------
-    // 🔐 END OF SECURITY CHECK
+    // 🔐 END OF SECURITY CHECKS
     // -----------------------------
 
     const { searchParams } = new URL(req.url);
@@ -78,7 +75,9 @@ export async function GET(req) {
         .replace(/(^-|-$)/g, "");
 
     const match = matches.find(
-      (m) => m.slug === matchId || toSlug(m.title) === matchId
+      (m) =>
+        m.slug === matchId ||
+        toSlug(m.title) === matchId
     );
 
     if (!match) {
