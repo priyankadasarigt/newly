@@ -1,6 +1,5 @@
 import ClientOnlyImage from "./components/ClientOnlyImage.jsx";
 import Link from "next/link";
-import "./styles.css";
 
 export const dynamic = "force-dynamic";
 
