@@ -3,9 +3,9 @@ import { NextResponse } from "next/server";
 export async function GET(req) {
   try {
     // -----------------------------
-    // 🔐 NEW SECURITY CHECK (BEST)
+    // 🔐 SECURITY CHECK #1 — Host validation (BEST)
     // -----------------------------
-    const host = req.headers.get("host"); // host: vidya.myftp.biz
+    const host = req.headers.get("host"); // should be: vidya.myftp.biz
     const allowedHost = process.env.ALLOWED_HOST;
 
     if (!host || host !== allowedHost) {
@@ -13,11 +13,11 @@ export async function GET(req) {
     }
 
     // -----------------------------
-    // 🔒 NEXT PROTECTION LAYER: Block non-browser clients
+    // 🔐 SECURITY CHECK #2 — Block non-browser clients
     // -----------------------------
     const ua = req.headers.get("user-agent") || "";
 
-    // Block known scrapers (curl, python, wget, Postman, axios, etc.)
+    // ❌ block all known scrapers, bots & API clients
     const badAgents = [
       "curl",
       "python",
@@ -37,13 +37,22 @@ export async function GET(req) {
       return NextResponse.json({ error: "Unauthorized UA" }, { status: 401 });
     }
 
-    // Require browser-like User-Agent signature
-    if (!ua.includes("Mozilla")) {
+    // ✔ REAL BROWSER User-Agent patterns (Level-3 protection)
+    const realBrowserPatterns = [
+      "Mozilla/5.0",
+      "Chrome/",
+      "Safari/",
+      "Gecko/",
+      "Edg/"
+    ];
+
+    // If UA doesn't match ANY real browser signature → BLOCK
+    if (!realBrowserPatterns.some(p => ua.includes(p))) {
       return NextResponse.json({ error: "Browser only" }, { status: 401 });
     }
 
     // -----------------------------
-    // 🔐 END SECURITY CHECK
+    // 🔐 END OF SECURITY CHECK
     // -----------------------------
 
     const { searchParams } = new URL(req.url);
