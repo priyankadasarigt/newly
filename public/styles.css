@@ -21,9 +21,11 @@
   display: inline-block;
   text-transform: uppercase;
   letter-spacing: 2px;
+
+  /* THE REAL FIX */
+  overflow: hidden;
 }
 
-/* FIXED VERSION — THIS PART WAS NOT WORKING IN YOUR BUILD */
 .hunt-glow-text::before {
   content: "";
   position: absolute;
@@ -48,11 +50,11 @@
     linear-gradient(#fff 0 0);
   mask-composite: exclude;
   -webkit-mask-composite: xor;
+
   animation: spinRainbow 4s linear infinite;
   z-index: -1;
 }
 
-/* KEYFRAMES */
 @keyframes spinRainbow {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
