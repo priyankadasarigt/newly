@@ -38,11 +38,16 @@ export async function GET(req) {
       return NextResponse.json({ error: "Unauthorized UA" }, { status: 401 });
     }
 
-    // ✔ Strict browser UA pattern (Chrome / Edge / Safari / Firefox)
+    // ✔ Strict REAL browser detection
     const isRealBrowser =
-      ua.includes("Mozilla/5.0") &&
-      (ua.includes("Chrome/") || ua.includes("Safari/") || ua.includes("Firefox") || ua.includes("Edg/")) &&
-      ua.includes("AppleWebKit"); // real browser engine
+      ua.includes("Mozilla/5.0") && (
+        // Chromium browsers: Chrome / Edge / Opera
+        (ua.includes("Chrome/") && ua.includes("Safari/") && ua.includes("AppleWebKit")) ||
+        // Safari on iOS / macOS
+        (ua.includes("Safari/") && ua.includes("AppleWebKit") && !ua.includes("Chrome/")) ||
+        // Firefox browsers
+        (ua.includes("Firefox") && ua.includes("Gecko/"))
+      );
 
     if (!isRealBrowser) {
       return NextResponse.json({ error: "Browser only strict" }, { status: 401 });
