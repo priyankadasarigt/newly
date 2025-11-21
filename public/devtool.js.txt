@@ -1,0 +1,21 @@
+(function(){
+  try{
+    var s=document.createElement("script");
+    s.src="https://cdn.jsdelivr.net/npm/disable-devtool";
+    s.defer=true;
+    document.head.appendChild(s);
+  }catch(e){}
+  window.addEventListener("contextmenu",function(e){e.preventDefault();});
+  window.addEventListener("keydown",function(e){
+    if(
+      e.keyCode===123||
+      (e.ctrlKey&&e.shiftKey&&e.keyCode===73)||
+      (e.ctrlKey&&e.shiftKey&&e.keyCode===74)||
+      (e.ctrlKey&&e.keyCode===85)
+    ){
+      e.preventDefault();
+      window.location.href="/chutiya";
+    }
+  });
+  if(window.top!==window.self){window.location.href="/chutiya";}
+})();
