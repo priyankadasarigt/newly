@@ -93,6 +93,19 @@ body {
   100% { background-position: 0% 50%; }
 }
 
+/* FULL COLOR BACKGROUND FIX FOR MOBILE */
+@media (max-width: 768px) {
+  body {
+    background-size: 600% 600%;   /* bigger spread */
+    animation: bgMoveMobile 18s ease infinite;
+  }
+}
+
+@keyframes bgMoveMobile {
+  0% { background-position: 0% 30%; }
+  50% { background-position: 100% 70%; }
+  100% { background-position: 0% 30%; }
+}
 
 
 /* ----------------------------------------
