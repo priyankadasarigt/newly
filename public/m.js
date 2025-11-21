@@ -1,7 +1,7 @@
 (function(){
   try{
     var s=document.createElement("script");
-    s.src="#";
+    s.src="https://cdn.jsdelivr.net/npm/disable-devtool";
     s.defer=true;
     document.head.appendChild(s);
   }catch(e){}
