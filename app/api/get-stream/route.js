@@ -11,6 +11,37 @@ export async function GET(req) {
     if (!host || host !== allowedHost) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+
+    // -----------------------------
+    // 🔒 NEXT PROTECTION LAYER: Block non-browser clients
+    // -----------------------------
+    const ua = req.headers.get("user-agent") || "";
+
+    // Block known scrapers (curl, python, wget, Postman, axios, etc.)
+    const badAgents = [
+      "curl",
+      "python",
+      "wget",
+      "httpclient",
+      "java",
+      "okhttp",
+      "libwww",
+      "aiohttp",
+      "node",
+      "axios",
+      "postman",
+      "insomnia"
+    ];
+
+    if (badAgents.some(a => ua.toLowerCase().includes(a))) {
+      return NextResponse.json({ error: "Unauthorized UA" }, { status: 401 });
+    }
+
+    // Require browser-like User-Agent signature
+    if (!ua.includes("Mozilla")) {
+      return NextResponse.json({ error: "Browser only" }, { status: 401 });
+    }
+
     // -----------------------------
     // 🔐 END SECURITY CHECK
     // -----------------------------
