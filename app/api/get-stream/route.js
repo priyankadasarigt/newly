@@ -2,6 +2,36 @@ import { NextResponse } from "next/server";
 
 export async function GET(req) {
   try {
+    // -----------------------------
+    // 🔐 SECURITY CHECK STARTS HERE
+    // -----------------------------
+    const origin = req.headers.get("origin");
+    const referer = req.headers.get("referer");
+    const allowedHost = process.env.ALLOWED_HOST; // e.g. neer.vercel.app
+
+    // Block if no Origin header
+    if (!origin) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // Extract hostname
+    const originHost = new URL(origin).hostname;
+
+    // Origin must match your domain
+    if (originHost !== allowedHost) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // Referer must contain your domain
+    if (!referer || !referer.includes(allowedHost)) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // -----------------------------
+    // 🔐 SECURITY CHECK ENDS HERE
+    // -----------------------------
+
+
     const { searchParams } = new URL(req.url);
 
     const key = searchParams.get("key");      // ex: adfree_stream
