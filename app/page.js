@@ -38,9 +38,16 @@ export default async function Page() {
   return (
     <main>
 
-      {/* NEW BIG HEADER */}
+      {/* NEW BIG HEADER (UPDATED TO HYPERLINK) */}
       <div className="hunt-header">
-        <h1 className="hunt-glow-text">Join @HuntTV</h1>
+        <a
+          href="https://dsfsd.com"
+          target="_blank"
+          rel="noreferrer"
+          className="hunt-glow-text"
+        >
+          Join @HuntTV
+        </a>
       </div>
 
       {/* NEW SMALL TITLE */}
