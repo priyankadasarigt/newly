@@ -73,8 +73,9 @@
 
 
 /* ----------------------------------------
-   🔥 PAGE BACKGROUND (EXTRACTED FROM RootLayout)
-   — EXACT OLD STATIC BACKGROUND
+   🔥 STATIC PAGE BACKGROUND (OLD ORIGINAL)
+   — NO MOVING
+   — SAME FOR PC + MOBILE
 ----------------------------------------- */
 body {
   font-family: Arial, sans-serif;
@@ -85,7 +86,7 @@ body {
   padding: 20px 10px;
   min-height: 100vh;
   background-size: cover;
-  background-position: center;
+  background-attachment: fixed;
 }
 
 
@@ -128,7 +129,7 @@ body {
 
 
 /* ----------------------------------------
-   🎴 CARD BASE (OLD PRESERVED)
+   🎴 CARD BASE (OLD, PRESERVED)
 ----------------------------------------- */
 .card {
   border-radius: 18px;
@@ -164,7 +165,7 @@ body {
 
 
 /* ----------------------------------------
-   🟦 GRID LAYOUT (OLD)
+   🟦 GRID LAYOUT (OLD PRESERVED)
 ----------------------------------------- */
 .grid {
   display: grid;
@@ -176,7 +177,7 @@ body {
 
 
 /* ----------------------------------------
-   🟧 OLD JOIN BOX
+   🟧 OLD JOIN BOX (EXACT SAME)
 ----------------------------------------- */
 .join-box {
   display: inline-block;
@@ -192,7 +193,7 @@ body {
 
 
 /* ----------------------------------------
-   🟦 HOME BUTTON
+   🟦 HOME BUTTON (UNTOUCHED)
 ----------------------------------------- */
 .home-btn {
   display: inline-block;
