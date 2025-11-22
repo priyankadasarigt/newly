@@ -38,7 +38,6 @@ export default async function Page() {
   return (
     <main>
 
-      {/* NEW BIG HEADER (UPDATED TO HYPERLINK) */}
       <div className="hunt-header">
         <a
           href="https://telegram.dog/HuntTV"
@@ -50,21 +49,12 @@ export default async function Page() {
         </a>
       </div>
 
-      {/* NEW SMALL TITLE */}
       <h4 className="section-title">Fancode Live Matches</h4>
 
       <section className="grid">
         {matches.map((m, idx)=> {
 
           const isLive = String((m.status||'')).toUpperCase() === 'LIVE';
-
-          const img =
-            m.image ||
-            (m.image_cdn &&
-              (m.image_cdn.APP ||
-               m.image_cdn.PLAYBACK ||
-               m.image_cdn.BG_IMAGE)) ||
-            '';
 
           const slug = m.slug || slugify(m.title);
 
@@ -74,8 +64,8 @@ export default async function Page() {
 
                 {isLive && <div className="live-badge">LIVE</div>}
 
-                {img ? (
-                  <ClientOnlyImage src={img} alt={m.title} className="thumb" />
+                {m.encoded ? (
+                  <ClientOnlyImage encoded={m.encoded} alt={m.title} className="thumb" />
                 ) : (
                   <div style={{height:220, background:'#111'}} />
                 )}
