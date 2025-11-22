@@ -93,22 +93,21 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-
 /* ----------------------------------------
-   ❌ Disable background animation on mobile
------------------------------------------ */
-/* ----------------------------------------
-   📱 MOBILE VERSION — USE OLD STATIC BACKGROUND
+   📱 MOBILE FIX — USE OLD GRADIENT EVERYWHERE
 ----------------------------------------- */
 @media (max-width: 768px) {
-  body {
+  body,
+  main,
+  .hunt-header,
+  .hunt-glow-text,
+  html {
     background: linear-gradient(45deg, #ff416c, #ff4b2b, #1e90ff) !important;
     background-size: cover !important;
     background-position: center !important;
     animation: none !important;
   }
 }
-
 
 /* ----------------------------------------
    🟥 OLD LIVE BADGE (EXACT SAME)
