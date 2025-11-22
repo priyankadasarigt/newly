@@ -3,6 +3,12 @@ import { getMatches } from "@/lib/gtm";
 
 export async function GET(req) {
   try {
+    // 🚫 BLOCK DIRECT BROWSER VISIT
+    const mode = req.headers.get("sec-fetch-mode");
+    if (mode === "navigate") {
+      return NextResponse.json({ error: "Direct Access Blocked" }, { status: 401 });
+    }
+
     const host = req.headers.get("host");
     const allowedHost = process.env.ALLOWED_HOST;
 
@@ -41,7 +47,6 @@ export async function GET(req) {
       return NextResponse.json({ error: "Missing key or match ID" }, { status: 400 });
     }
 
-    // SECURE FETCH
     const matches = await getMatches();
 
     const toSlug = (t) =>
@@ -70,6 +75,7 @@ export async function GET(req) {
       return NextResponse.json({ error: "Stream not found" }, { status: 404 });
     }
 
+    // 👍 Return JSON normally (JWPlayer can read this)
     return NextResponse.json({ url });
 
   } catch (error) {
