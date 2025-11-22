@@ -18,10 +18,13 @@
   color: #ffffff;
   text-decoration: none;
   border-radius: 16px;
-  background: rgba(0, 0, 0, 0.25);      /* transparent glass effect */
-  backdrop-filter: blur(6px);
+
+  /* FIXED — NO BLACK, NO BLUR, FULL TRANSPARENT */
+  background: transparent !important;
+  backdrop-filter: none !important;
+
   display: inline-block;
-  overflow: hidden;                     /* IMPORTANT */
+  overflow: hidden; 
 }
 
 /* LED BORDER */
@@ -74,7 +77,7 @@
 
 
 /* ----------------------------------------
-   🔥 ORIGINAL PAGE BACKGROUND
+   🔥 ORIGINAL PAGE BACKGROUND (PC)
 ----------------------------------------- */
 body {
   font-family: Arial, sans-serif;
@@ -93,21 +96,31 @@ body {
   100% { background-position: 0% 50%; }
 }
 
+
+
 /* ----------------------------------------
-   📱 MOBILE FIX — USE OLD GRADIENT EVERYWHERE
+   📱 MOBILE FIX — OLD GRADIENT, NO ANIMATION
 ----------------------------------------- */
 @media (max-width: 768px) {
+
   body,
   main,
-  .hunt-header,
-  .hunt-glow-text,
   html {
     background: linear-gradient(45deg, #ff416c, #ff4b2b, #1e90ff) !important;
     background-size: cover !important;
     background-position: center !important;
     animation: none !important;
   }
+
+  /* Header stays transparent, prevents blue issue */
+  .hunt-header,
+  .hunt-glow-text {
+    background: transparent !important;
+    backdrop-filter: none !important;
+  }
 }
+
+
 
 /* ----------------------------------------
    🟥 OLD LIVE BADGE (EXACT SAME)
