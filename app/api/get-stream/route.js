@@ -70,8 +70,7 @@ export async function GET(req) {
       return NextResponse.json({ error: "Stream not found" }, { status: 404 });
     }
 
-    // 🔥 FINAL FIX: DO NOT EXPOSE REAL URL
-    return NextResponse.redirect(url);
+    return NextResponse.json({ url });
 
   } catch (error) {
     console.error("API Error:", error);
