@@ -213,11 +213,20 @@ body {
 /* -------------------------------------------------
    ✅ MOBILE FIX — REMOVE background-attachment: fixed
 -------------------------------------------------- */
+/* FIX FOR MOBILE GRADIENT */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(45deg, #ff416c, #ff4b2b, #1e90ff);
+  background-size: cover;
+  pointer-events: none;
+}
+
 @media (max-width: 768px) {
   body {
-    background-attachment: scroll;
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+    background: none;
   }
 }
 
