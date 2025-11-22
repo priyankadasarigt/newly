@@ -1,22 +1,8 @@
 import ClientOnlyImage from "./components/ClientOnlyImage.jsx";
 import Link from "next/link";
+import { getMatches } from "@/lib/getMatches";
 
 export const dynamic = "force-dynamic";
-
-async function fetchMatches() {
-  const url = process.env.HUNT_JSON;
-  if (!url) return [];
-
-  try {
-    const res = await fetch(url, { cache: 'no-store' });
-    const json = await res.json();
-    if (Array.isArray(json)) return json;
-    if (Array.isArray(json.matches)) return json.matches;
-    return [];
-  } catch (e) {
-    return [];
-  }
-}
 
 function slugify(t) {
   return String(t||'')
@@ -26,7 +12,8 @@ function slugify(t) {
 }
 
 export default async function Page() {
-  let matches = await fetchMatches();
+  // USE SECURE SERVER-ONLY FETCHER
+  let matches = await getMatches();
 
   // LIVE FIRST
   matches.sort((a, b) => {
@@ -37,8 +24,6 @@ export default async function Page() {
 
   return (
     <main>
-
-      {/* NEW BIG HEADER (UPDATED TO HYPERLINK) */}
       <div className="hunt-header">
         <a
           href="https://telegram.dog/HuntTV"
@@ -50,7 +35,6 @@ export default async function Page() {
         </a>
       </div>
 
-      {/* NEW SMALL TITLE */}
       <h4 className="section-title">Fancode Live Matches</h4>
 
       <section className="grid">
