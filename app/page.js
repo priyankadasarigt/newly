@@ -1,6 +1,6 @@
 import ClientOnlyImage from "./components/ClientOnlyImage.jsx";
 import Link from "next/link";
-import { getMatches } from "@/lib/getMatches";
+import { getMatches } from "@/lib/gtm";
 
 export const dynamic = "force-dynamic";
 
