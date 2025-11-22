@@ -1,223 +1,208 @@
 /* ----------------------------------------
-   🌈 CLEAN RAINBOW BORDER FRAME (LED SIGN STYLE)
+   🌈 CLEAN RAINBOW BORDER FRAME (LED SIGN STYLE)
 ----------------------------------------- */
 .hunt-header {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
 }
 
 /* MAIN BOX */
 .hunt-glow-text {
-  position: relative;
-  padding: 16px 45px;
-  font-size: 32px;
-  font-weight: 900;
-  text-transform: uppercase;
-  color: #ffffff;
-  text-decoration: none;
-  border-radius: 16px;
-  background: rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(6px);
-  display: inline-block;
-  overflow: hidden;
+  position: relative;
+  padding: 16px 45px;
+  font-size: 32px;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(6px);
+  display: inline-block;
+  overflow: hidden;
 }
 
 /* LED BORDER */
 .hunt-glow-text::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 16px;
-  padding: 3px;
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 3px;
 
-  background: linear-gradient(
-    90deg,
-    red,
-    orange,
-    yellow,
-    green,
-    cyan,
-    blue,
-    purple,
-    red
-  );
+  background: linear-gradient(
+    90deg,
+    red,
+    orange,
+    yellow,
+    green,
+    cyan,
+    blue,
+    purple,
+    red
+  );
 
-  background-size: 300% 100%;
-  animation: borderRun 3.5s linear infinite;
+  background-size: 300% 100%;
+  animation: borderRun 3.5s linear infinite;
 
-  z-index: -1;
+  z-index: -1;
 
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-          mask-composite: exclude;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
 }
 
 @keyframes borderRun {
-  0%   { background-position: 0% 50%; }
-  100% { background-position: 300% 50%; }
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
 }
 
 /* Title */
 .section-title {
-  text-align: center;
-  font-size: 22px;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  color: #fff;
+  text-align: center;
+  font-size: 22px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #fff;
 }
 
 
----
 
 /* ----------------------------------------
-   🔥 ANIMATED PAGE BACKGROUND (FIXED FOR FULL GRADIENT ON MOBILE)
+   🔥 PAGE BACKGROUND (EXTRACTED FROM RootLayout)
+   — EXACT OLD STATIC BACKGROUND
 ----------------------------------------- */
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background: linear-gradient(45deg, #ff416c, #ff4b2b, #1e90ff);
-  color: #fff;
-  margin: 0;
-  padding: 20px 10px;
-  min-height: 100vh;
-  
-  /* --- CRITICAL FIXES FOR MOBILE VISIBILITY --- */
-  **background-size: 400% 400%;**     /* Ensures a wider section of gradient is visible */
-  **background-position: 0% 50%;**   /* Sets the initial position to start the animation properly */
-  **background-attachment: fixed;**   /* Helps fix mobile rendering issues */
-  **animation: bgMove 15s ease infinite;** /* Re-enables the movement */
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: linear-gradient(45deg, #ff416c, #ff4b2b, #1e90ff);
+  color: #fff;
+  margin: 0;
+  padding: 20px 10px;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
 }
 
-@keyframes bgMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
 
----
 
 /* ----------------------------------------
-   🟥 OLD LIVE BADGE (EXACT SAME)
+   🟥 OLD LIVE BADGE (EXACT SAME)
 ----------------------------------------- */
 .live-badge {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  padding: 6px 14px;
-  border-radius: 20px;
-  background: #ff0040;
-  color: #fff;
-  font-size: 13px;
-  font-weight: bold;
-  z-index: 5;
-  box-shadow: 0 0 10px rgba(255, 0, 64, 0.6);
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: #ff0040;
+  color: #fff;
+  font-size: 13px;
+  font-weight: bold;
+  z-index: 5;
+  box-shadow: 0 0 10px rgba(255, 0, 64, 0.6);
 }
 
 
----
 
 /* ----------------------------------------
-   🟣 NEW PURPLE NEON GLOW FOR LIVE CARD
+   🟣 NEW PURPLE NEON GLOW FOR LIVE CARD
 ----------------------------------------- */
 .live-glow {
-  border-radius: 18px;
-  position: relative;
-  animation: purplePulse 1.9s ease-in-out infinite;
-  box-shadow: 0 0 25px rgba(170, 0, 255, 0.9);
+  border-radius: 18px;
+  position: relative;
+  animation: purplePulse 1.9s ease-in-out infinite;
+  box-shadow: 0 0 25px rgba(170, 0, 255, 0.9);
 }
 
 @keyframes purplePulse {
-  0%   { box-shadow: 0 0 15px #9a00ff; }
-  50%  { box-shadow: 0 0 35px #d200ff; }
-  100% { box-shadow: 0 0 15px #9a00ff; }
+  0%   { box-shadow: 0 0 15px #9a00ff; }
+  50%  { box-shadow: 0 0 35px #d200ff; }
+  100% { box-shadow: 0 0 15px #9a00ff; }
 }
 
 
----
 
 /* ----------------------------------------
-   🎴 CARD BASE (OLD, PRESERVED)
+   🎴 CARD BASE (OLD PRESERVED)
 ----------------------------------------- */
 .card {
-  border-radius: 18px;
-  overflow: hidden;
-  background: rgba(20, 20, 20, 0.55);
-  transition: all 0.25s ease;
-  text-decoration: none;
-  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  background: rgba(20, 20, 20, 0.55);
+  transition: all 0.25s ease;
+  text-decoration: none;
+  position: relative;
 }
 
 .card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
 }
 
 .thumb {
-  width: 100%;
-  height: auto;
-  border-radius: 12px 12px 0 0;
+  width: 100%;
+  height: auto;
+  border-radius: 12px 12px 0 0;
 }
 
 .body {
-  padding: 15px;
-  color: #fff;
+  padding: 15px;
+  color: #fff;
 }
 
 .body h2 {
-  margin: 0;
-  margin-bottom: 8px;
-  font-size: 20px;
+  margin: 0;
+  margin-bottom: 8px;
+  font-size: 20px;
 }
 
 
----
 
 /* ----------------------------------------
-   🟦 GRID LAYOUT (OLD PRESERVED)
+   🟦 GRID LAYOUT (OLD)
 ----------------------------------------- */
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 25px;
-  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 25px;
+  padding: 20px;
 }
 
 
----
 
 /* ----------------------------------------
-   🟧 OLD JOIN BOX (EXACT SAME)
+   🟧 OLD JOIN BOX
 ----------------------------------------- */
 .join-box {
-  display: inline-block;
-  margin-top: 25px;
-  padding: 14px 24px;
-  background: linear-gradient(90deg,#FFD700,#FF6347,#4CAF50);
-  color: #000;
-  border-radius: 12px;
-  font-weight: 800;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  display: inline-block;
+  margin-top: 25px;
+  padding: 14px 24px;
+  background: linear-gradient(90deg,#FFD700,#FF6347,#4CAF50);
+  color: #000;
+  border-radius: 12px;
+  font-weight: 800;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
 }
 
 
----
 
 /* ----------------------------------------
-   🟦 HOME BUTTON (UNTOUCHED)
+   🟦 HOME BUTTON
 ----------------------------------------- */
 .home-btn {
-  display: inline-block;
-  margin: 10px auto;
-  padding: 12px 24px;
-  font-size: 18px;
-  color: #fff;
-  background: linear-gradient(90deg, #2196F3, #21CBF3);
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: bold;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  display: inline-block;
+  margin: 10px auto;
+  padding: 12px 24px;
+  font-size: 18px;
+  color: #fff;
+  background: linear-gradient(90deg, #2196F3, #21CBF3);
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
 }
