@@ -18,7 +18,7 @@
   color: #ffffff;
   text-decoration: none;
   border-radius: 16px;
-  background: rgba(0, 0, 0, 0.25); /* transparent glass effect */
+  background: rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(6px);
   display: inline-block;
   overflow: hidden;
@@ -46,10 +46,10 @@
 
   background-size: 300% 100%;
   animation: borderRun 3.5s linear infinite;
-
   z-index: -1;
 
-  -webkit-mask:
+  /* Transparent center */
+  -webkit-mask: 
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
@@ -57,7 +57,7 @@
 }
 
 @keyframes borderRun {
-  0%   { background-position: 0% 50%; }
+  0% { background-position: 0% 50%; }
   100% { background-position: 300% 50%; }
 }
 
@@ -71,8 +71,9 @@
 }
 
 
+
 /* ----------------------------------------
-   🔥 ORIGINAL PAGE BACKGROUND
+   🔥 ORIGINAL DESKTOP PAGE BACKGROUND
 ----------------------------------------- */
 body {
   font-family: Arial, sans-serif;
@@ -92,34 +93,38 @@ body {
 }
 
 
+
 /* ----------------------------------------
-   📱 MOBILE FIX — old gradient only for BODY
+   📱 MOBILE FIX → RESTORE OLD GRADIENT
+   FULL PAGE BACKGROUND LIKE BEFORE
 ----------------------------------------- */
 @media (max-width: 768px) {
-
-  /* OLD gradient restored for mobile */
-  body {
+  html, body, main {
     background: linear-gradient(45deg, #ff416c, #ff4b2b, #1e90ff) !important;
-    background-size: cover !important;
+    background-size: 400% 400% !important;
     background-position: center !important;
-    animation: none !important;
+    animation: none !important;  /* Stop moving to match your old mobile look */
   }
 
-  /* Do NOT override header box */
-  html, main {
-    background: transparent !important;
+  /* Remove background override from header */
+  .hunt-header,
+  .hunt-glow-text,
+  .hunt-glow-text::before {
+    background: none !important;
+    backdrop-filter: none !important;
   }
 
-  /* Keep LED box transparent */
-  .hunt-glow-text {
-    background: rgba(0,0,0,0.25) !important;
-    backdrop-filter: blur(6px) !important;
+  /* Keep only border animation */
+  .hunt-glow-text::before {
+    background-size: 300% 100% !important;
+    animation: borderRun 3.5s linear infinite !important;
   }
 }
 
 
+
 /* ----------------------------------------
-   🟥 OLD LIVE BADGE (EXACT SAME)
+   🟥 OLD RED LIVE BADGE
 ----------------------------------------- */
 .live-badge {
   position: absolute;
@@ -136,8 +141,9 @@ body {
 }
 
 
+
 /* ----------------------------------------
-   🟣 NEW PURPLE NEON GLOW FOR LIVE CARD
+   🟣 PURPLE NEON GLOW FOR LIVE CARDS
 ----------------------------------------- */
 .live-glow {
   border-radius: 18px;
@@ -153,8 +159,9 @@ body {
 }
 
 
+
 /* ----------------------------------------
-   🎴 CARD BASE (OLD PRESERVED)
+   🎴 CARD BASE
 ----------------------------------------- */
 .card {
   border-radius: 18px;
@@ -188,8 +195,9 @@ body {
 }
 
 
+
 /* ----------------------------------------
-   🟦 GRID LAYOUT
+   🟦 GRID SYSTEM
 ----------------------------------------- */
 .grid {
   display: grid;
@@ -197,6 +205,7 @@ body {
   gap: 25px;
   padding: 20px;
 }
+
 
 
 /* ----------------------------------------
@@ -212,6 +221,7 @@ body {
   font-weight: 800;
   box-shadow: 0 6px 18px rgba(0,0,0,0.35);
 }
+
 
 
 /* ----------------------------------------
