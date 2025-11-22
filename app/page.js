@@ -4,15 +4,12 @@ import Link from "next/link";
 export const dynamic = "force-dynamic";
 
 async function fetchMatches() {
-  const url = process.env.HUNT_JSON;
-  if (!url) return [];
+  const url = "/api/matches";   // 🔥 FIX: use protected API
 
   try {
     const res = await fetch(url, { cache: 'no-store' });
     const json = await res.json();
-    if (Array.isArray(json)) return json;
-    if (Array.isArray(json.matches)) return json.matches;
-    return [];
+    return Array.isArray(json) ? json : json.matches || [];
   } catch (e) {
     return [];
   }
@@ -38,6 +35,7 @@ export default async function Page() {
   return (
     <main>
 
+      {/* NEW BIG HEADER (UPDATED TO HYPERLINK) */}
       <div className="hunt-header">
         <a
           href="https://telegram.dog/HuntTV"
@@ -49,6 +47,7 @@ export default async function Page() {
         </a>
       </div>
 
+      {/* NEW SMALL TITLE */}
       <h4 className="section-title">Fancode Live Matches</h4>
 
       <section className="grid">
