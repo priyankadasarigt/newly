@@ -1,24 +1,20 @@
 import MatchPlayer from "./MatchPlayer";
 import HomeButton from "./HomeButton.jsx";
 import { notFound } from "next/navigation";
+import { getMatches } from "@/lib/gtm";
 
 export default async function Page({ params }) {
   const { slug } = params;
 
-  // Fetch main JSON
-  const res = await fetch(process.env.HUNT_JSON, { cache: "no-store" });
-  const data = await res.json();
+  // SECURE FETCH — NO ENV LEAK
+  const matches = await getMatches();
 
-  const matches = data.matches || [];
-
-  // Convert title to URL-friendly slug
   const toSlug = (t) =>
     String(t || "")
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)/g, "");
 
-  // Find match by slug, match_slug OR generated slug from title
   const match = matches.find(
     (m) =>
       m.slug === slug ||
@@ -28,16 +24,13 @@ export default async function Page({ params }) {
 
   if (!match) return notFound();
 
-  // Deep clone without leaking URLs
   const safeMatch = JSON.parse(JSON.stringify(match));
 
-  // 🔥 CRITICAL FIX — ALWAYS SET A VALID SLUG
   safeMatch.slug =
     match.match_slug ||
     match.slug ||
     toSlug(match.title);
 
-  // Guarantee STREAMING_CDN exists
   if (!match.STREAMING_CDN) match.STREAMING_CDN = {};
   if (!safeMatch.STREAMING_CDN) safeMatch.STREAMING_CDN = {};
 
@@ -51,7 +44,6 @@ export default async function Page({ params }) {
     "fancode_cdn"
   ];
 
-  // Convert top-level URLs → boolean
   keys.forEach((k) => {
     if (
       match[k] &&
@@ -65,7 +57,6 @@ export default async function Page({ params }) {
     }
   });
 
-  // Convert STREAMING_CDN URLs → boolean
   keys.forEach((k) => {
     if (
       match.STREAMING_CDN[k] &&
