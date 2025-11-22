@@ -1,5 +1,16 @@
 import { NextResponse } from "next/server";
 
+// Safe Base64 encode for all runtimes (Vercel/Edge/Node)
+function encodeBase64(str) {
+  try {
+    // Browser-like encode
+    return btoa(str);
+  } catch (e) {
+    // Node fallback
+    return Buffer.from(str, "utf-8").toString("base64");
+  }
+}
+
 export async function GET() {
   const url = process.env.HUNT_JSON;
   if (!url) return NextResponse.json({ matches: [] });
@@ -10,7 +21,6 @@ export async function GET() {
 
     const arr = Array.isArray(json) ? json : json.matches || [];
 
-    // HIDE IMAGE URL using Base64
     const safe = arr.map(m => {
       const real =
         m?.image ||
@@ -21,7 +31,7 @@ export async function GET() {
 
       return {
         ...m,
-        encoded: Buffer.from(real).toString("base64"), // <--- encoded URL
+        encoded: encodeBase64(real),  // 🔥 Correct encoding logic
       };
     });
 
