@@ -4,12 +4,15 @@ import Link from "next/link";
 export const dynamic = "force-dynamic";
 
 async function fetchMatches() {
-  const url = "/api/matches";   // 🔥 FIX: use protected API
+  const url = process.env.HUNT_JSON;
+  if (!url) return [];
 
   try {
     const res = await fetch(url, { cache: 'no-store' });
     const json = await res.json();
-    return Array.isArray(json) ? json : json.matches || [];
+    if (Array.isArray(json)) return json;
+    if (Array.isArray(json.matches)) return json.matches;
+    return [];
   } catch (e) {
     return [];
   }
@@ -55,6 +58,14 @@ export default async function Page() {
 
           const isLive = String((m.status||'')).toUpperCase() === 'LIVE';
 
+          const img =
+            m.image ||
+            (m.image_cdn &&
+              (m.image_cdn.APP ||
+               m.image_cdn.PLAYBACK ||
+               m.image_cdn.BG_IMAGE)) ||
+            '';
+
           const slug = m.slug || slugify(m.title);
 
           return (
@@ -63,8 +74,8 @@ export default async function Page() {
 
                 {isLive && <div className="live-badge">LIVE</div>}
 
-                {m.encoded ? (
-                  <ClientOnlyImage encoded={m.encoded} alt={m.title} className="thumb" />
+                {img ? (
+                  <ClientOnlyImage src={img} alt={m.title} className="thumb" />
                 ) : (
                   <div style={{height:220, background:'#111'}} />
                 )}
