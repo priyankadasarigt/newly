@@ -3,11 +3,9 @@ import { NextResponse } from "next/server";
 // Safe Base64 encode for all runtimes (Vercel/Edge/Node)
 function encodeBase64(str) {
   try {
-    // Browser-like encode
-    return btoa(str);
+    return btoa(str); // Browser-like
   } catch (e) {
-    // Node fallback
-    return Buffer.from(str, "utf-8").toString("base64");
+    return Buffer.from(str, "utf-8").toString("base64"); // Node fallback
   }
 }
 
@@ -31,7 +29,7 @@ export async function GET() {
 
       return {
         ...m,
-        encoded: encodeBase64(real),  // 🔥 Correct encoding logic
+        encoded: encodeBase64(real),   // <--- MAIN CHANGE
       };
     });
 
