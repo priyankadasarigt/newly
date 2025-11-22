@@ -7,7 +7,7 @@ export default function ClientOnlyImage({ encoded, alt, className }) {
   useEffect(() => {
     if (encoded) {
       try {
-        setUrl(atob(encoded)); // decode only on browser
+        setUrl(atob(encoded));   // 🔥 Decode only in browser
       } catch (e) {
         console.error("Invalid Base64", e);
       }
