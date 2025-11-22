@@ -18,13 +18,10 @@
   color: #ffffff;
   text-decoration: none;
   border-radius: 16px;
-
-  /* FIXED — NO BLACK, NO BLUR, FULL TRANSPARENT */
-  background: transparent !important;
-  backdrop-filter: none !important;
-
+  background: rgba(0, 0, 0, 0.25); /* transparent glass effect */
+  backdrop-filter: blur(6px);
   display: inline-block;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 /* LED BORDER */
@@ -52,7 +49,6 @@
 
   z-index: -1;
 
-  /* MASK TRANSPARENT CENTER */
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
@@ -75,9 +71,8 @@
 }
 
 
-
 /* ----------------------------------------
-   🔥 ORIGINAL PAGE BACKGROUND (PC)
+   🔥 ORIGINAL PAGE BACKGROUND
 ----------------------------------------- */
 body {
   font-family: Arial, sans-serif;
@@ -97,29 +92,30 @@ body {
 }
 
 
-
 /* ----------------------------------------
-   📱 MOBILE FIX — OLD GRADIENT, NO ANIMATION
+   📱 MOBILE FIX — old gradient only for BODY
 ----------------------------------------- */
 @media (max-width: 768px) {
 
-  body,
-  main,
-  html {
+  /* OLD gradient restored for mobile */
+  body {
     background: linear-gradient(45deg, #ff416c, #ff4b2b, #1e90ff) !important;
     background-size: cover !important;
     background-position: center !important;
     animation: none !important;
   }
 
-  /* Header stays transparent, prevents blue issue */
-  .hunt-header,
-  .hunt-glow-text {
+  /* Do NOT override header box */
+  html, main {
     background: transparent !important;
-    backdrop-filter: none !important;
+  }
+
+  /* Keep LED box transparent */
+  .hunt-glow-text {
+    background: rgba(0,0,0,0.25) !important;
+    backdrop-filter: blur(6px) !important;
   }
 }
-
 
 
 /* ----------------------------------------
@@ -140,7 +136,6 @@ body {
 }
 
 
-
 /* ----------------------------------------
    🟣 NEW PURPLE NEON GLOW FOR LIVE CARD
 ----------------------------------------- */
@@ -158,9 +153,8 @@ body {
 }
 
 
-
 /* ----------------------------------------
-   🎴 CARD BASE (OLD, PRESERVED)
+   🎴 CARD BASE (OLD PRESERVED)
 ----------------------------------------- */
 .card {
   border-radius: 18px;
@@ -194,9 +188,8 @@ body {
 }
 
 
-
 /* ----------------------------------------
-   🟦 GRID LAYOUT (OLD PRESERVED)
+   🟦 GRID LAYOUT
 ----------------------------------------- */
 .grid {
   display: grid;
@@ -206,9 +199,8 @@ body {
 }
 
 
-
 /* ----------------------------------------
-   🟧 OLD JOIN BOX (EXACT SAME)
+   🟧 OLD JOIN BOX
 ----------------------------------------- */
 .join-box {
   display: inline-block;
@@ -222,9 +214,8 @@ body {
 }
 
 
-
 /* ----------------------------------------
-   🟦 HOME BUTTON (UNTOUCHED)
+   🟦 HOME BUTTON
 ----------------------------------------- */
 .home-btn {
   display: inline-block;
