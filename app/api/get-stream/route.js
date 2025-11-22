@@ -1,61 +1,36 @@
 import { NextResponse } from "next/server";
+import { getMatches } from "@/lib/getMatches";
 
 export async function GET(req) {
   try {
-    // -----------------------------
-    // 🔐 SECURITY CHECK #1 — HOST VALIDATION
-    // -----------------------------
-    const host = req.headers.get("host"); // e.g. vidya.myftp.biz
+    const host = req.headers.get("host");
     const allowedHost = process.env.ALLOWED_HOST;
 
     if (!host || host !== allowedHost) {
       return NextResponse.json({ error: "Unauthorized Host" }, { status: 401 });
     }
 
-    // -----------------------------
-    // 🔐 SECURITY CHECK #2 — LEVEL 4 USER-AGENT VALIDATION
-    // -----------------------------
     const ua = req.headers.get("user-agent") || "";
 
-    // ❌ Block known scrapers & non-browser tools
     const badAgents = [
-      "curl",
-      "python",
-      "wget",
-      "httpclient",
-      "java",
-      "okhttp",
-      "libwww",
-      "aiohttp",
-      "node",
-      "axios",
-      "postman",
-      "insomnia",
-      "go-http-client"
+      "curl","python","wget","httpclient","java","okhttp","libwww","aiohttp",
+      "node","axios","postman","insomnia","go-http-client"
     ];
 
     if (badAgents.some(a => ua.toLowerCase().includes(a))) {
       return NextResponse.json({ error: "Unauthorized UA" }, { status: 401 });
     }
 
-    // ✔ Strict REAL browser detection
     const isRealBrowser =
       ua.includes("Mozilla/5.0") && (
-        // Chromium browsers: Chrome / Edge / Opera
         (ua.includes("Chrome/") && ua.includes("Safari/") && ua.includes("AppleWebKit")) ||
-        // Safari on iOS / macOS
         (ua.includes("Safari/") && ua.includes("AppleWebKit") && !ua.includes("Chrome/")) ||
-        // Firefox browsers
         (ua.includes("Firefox") && ua.includes("Gecko/"))
       );
 
     if (!isRealBrowser) {
       return NextResponse.json({ error: "Browser only strict" }, { status: 401 });
     }
-
-    // -----------------------------
-    // 🔐 END OF SECURITY CHECKS
-    // -----------------------------
 
     const { searchParams } = new URL(req.url);
 
@@ -66,12 +41,8 @@ export async function GET(req) {
       return NextResponse.json({ error: "Missing key or match ID" }, { status: 400 });
     }
 
-    const res = await fetch(process.env.HUNT_JSON, { cache: "no-store" });
-    const data = await res.json();
-
-    const matches = Array.isArray(data.matches)
-      ? data.matches
-      : (Array.isArray(data) ? data : []);
+    // SECURE FETCH
+    const matches = await getMatches();
 
     const toSlug = (t) =>
       String(t || "")
