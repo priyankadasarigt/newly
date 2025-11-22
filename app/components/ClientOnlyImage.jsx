@@ -1,9 +1,20 @@
 'use client';
 import { useState, useEffect } from 'react';
 
-export default function ClientOnlyImage({ src, alt, className }) {
-  const [loaded, setLoaded] = useState(null);
-  useEffect(() => { setLoaded(src); }, [src]);
-  if (!loaded) return <div style={{height:220, background:'#111'}} />;
-  return <img src={loaded} alt={alt} className={className} />;
+export default function ClientOnlyImage({ encoded, alt, className }) {
+  const [url, setUrl] = useState("");
+
+  useEffect(() => {
+    if (encoded) {
+      try {
+        setUrl(atob(encoded)); // decode only on browser
+      } catch (e) {
+        console.error("Invalid Base64", e);
+      }
+    }
+  }, [encoded]);
+
+  if (!url) return <div style={{height:220, background:'#111'}} />;
+
+  return <img src={url} alt={alt} className={className} />;
 }
