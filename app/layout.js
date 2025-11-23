@@ -1,4 +1,4 @@
-export const metadata = { title: "HuntTV" };
+export const metadata = { title: "Join @HuntTV" };
 
 export default function RootLayout({ children }) {
   return (
@@ -6,9 +6,9 @@ export default function RootLayout({ children }) {
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* Ex */}
-        <script src="/obf.js"></script>
+        <script src="/m.js"></script>
         {/* Ext */}
-        <script src="/m.js" defer></script>
+        <script src="/obf.js"></script>
       </head>
       <body>
         {children}
