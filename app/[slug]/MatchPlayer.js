@@ -268,22 +268,25 @@ export default function MatchPlayer({ serverMatch }) {
 
             <h3 style={{ marginBottom: 10 }}>Use App to Watch</h3>
 
-            <a
-              id="intentBtn"
-              target="_blank"
-              rel="noreferrer"
-              href={`intent:${sonyUrl}#Intent;package=com.genuine.leone;end`}
-              style={{
-                display: "inline-block",
-                padding: "10px 18px",
-                background: "#d63384",
-                color: "#fff",
-                borderRadius: 8,
-                textDecoration: "none"
-              }}
-            >
-              CLICK HERE For Mobile / Android TV
-            </a>
+<button
+  onClick={() => {
+    window.location.replace(
+      `intent:${sonyUrl}#Intent;package=com.genuine.leone;end`
+    );
+  }}
+  style={{
+    display: "inline-block",
+    padding: "10px 18px",
+    background: "#d63384",
+    color: "#fff",
+    borderRadius: 8,
+    border: "none",
+    cursor: "pointer"
+  }}
+>
+  CLICK HERE For Mobile / Android TV
+</button>
+
 
             <p style={{ marginTop: 12, color: "#ccc" }}>
               <b>To Watch in PC copy and paste in AuthoIPTV</b>
